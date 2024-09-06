@@ -1,0 +1,179 @@
+set $mod Mod4
+set $term xfce4-terminal
+
+input "type:keyboard" {
+    xkb_layout us
+    xkb_options caps:escape
+}
+
+input "type:touchpad" {
+    dwt enabled
+    tap enabled
+    middle_emulation enabled
+    natural_scroll disabled
+    # disable mouse acceleration
+    accel_profile "flat"
+    # set mouse sensitivity (between -1 and 1)
+    pointer_accel 0.7
+}
+
+# set bg
+output "*" bg ~/.config/wall.jpg fill
+
+font pango: Source Code Pro 9
+focus_follows_mouse no
+smart_borders on
+
+floating_modifier $mod
+
+for_window [class="^.*"] border pixel 1
+
+# always floating
+for_window [app_id="thunar"] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+for_window [app_id="vlc"] floating enable
+for_window [app_id="blueman-manager"] floating enable
+
+# on startup
+# suspend after idling 10 min
+exec ~/.bin/sway-idle.sh
+
+# clipman daemon
+exec wl-paste -t text --watch clipman store
+
+# systemd/dbus aware DISPLAY_WAYLAND
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+exec_always --no-startup-id ~/.bin/autotiling.py
+exec_always --no-startup-id dunst
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id blueman-applet
+
+# polkit agent
+exec_always --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+set $firefox_personal firefox -P "Personal"
+set $firefox_linkup firefox -P "Linkup"
+
+# key bindings
+bindsym $mod+Shift+q kill
+bindsym $mod+Return exec $term
+
+bindsym $mod+w exec $firefox_personal
+bindsym $mod+Shift+w exec $firefox_linkup
+bindsym $mod+e exec thunar
+bindsym Print exec grimshot copy area
+
+bindsym $mod+d exec dmenu_run -i -fn 'Source Code Pro-9' -nb '#000000' -nf '#ffffff' -sb '#666666' -sf '#ffffff'
+bindsym $mod+x exec clipman pick --tool=CUSTOM --tool-args="dmenu -p 'clipman' -i -l 10 -fn 'Source Code Pro-9' -nb '#000000' -nf '#ffffff' -sb '#666666' -sf '#ffffff'"
+
+# sound
+bindsym XF86AudioRaiseVolume exec amixer set Master 3%+
+bindsym XF86AudioLowerVolume exec amixer set Master 3%-
+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+
+# spotify media keys
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym $mod+h            focus left
+bindsym $mod+j            focus down
+bindsym $mod+k            focus up
+bindsym $mod+l            focus right
+
+bindsym $mod+Shift+h      move left
+bindsym $mod+Shift+j      move down
+bindsym $mod+Shift+k      move up
+bindsym $mod+Shift+l      move right
+
+#bindsym Shift+Control h resize shrink width 10 px or 10 ppt
+#bindsym Shift+Control j resize grow height 10 px or 10 ppt
+#bindsym Shift+Control k resize shrink height 10 px or 10 ppt
+#bindsym Shift+Control l resize grow width 10 px or 10 ppt
+
+bindsym $mod+f            fullscreen toggle
+bindsym $mod+space  	  floating toggle
+bindsym $mod+Tab          layout toggle default tabbed split
+
+#bindsym $mod+Shift+r restart
+
+# Workspaces 
+set $tag1 "1"
+set $tag2 "2"
+set $tag3 "3"
+set $tag4 "4"
+set $tag5 "5"
+set $tag6 "6"
+set $tag7 "7"
+set $tag8 "8"
+set $tag9 "9"
+set $tag10 "10"
+
+# dual monitor
+#workspace $tag1 output DisplayPort-1
+#workspace $tag2 output DisplayPort-1
+#workspace $tag3 output DisplayPort-1
+#workspace $tag4 output DisplayPort-1
+#workspace $tag5 output DisplayPort-1
+#workspace $tag6 output DisplayPort-1
+#
+#workspace $tag7 output DisplayPort-0
+#workspace $tag8 output DisplayPort-0
+#workspace $tag9 output DisplayPort-0
+#workspace $tag10 output DisplayPort-0
+
+bindsym $mod+1 workspace $tag1
+bindsym $mod+2 workspace $tag2
+bindsym $mod+3 workspace $tag3
+bindsym $mod+4 workspace $tag4
+bindsym $mod+5 workspace $tag5
+bindsym $mod+6 workspace $tag6
+bindsym $mod+7 workspace $tag7
+bindsym $mod+8 workspace $tag8
+bindsym $mod+9 workspace $tag9
+bindsym $mod+0 workspace $tag10
+
+bindsym $mod+Shift+1 move container to workspace $tag1
+bindsym $mod+Shift+2 move container to workspace $tag2
+bindsym $mod+Shift+3 move container to workspace $tag3
+bindsym $mod+Shift+4 move container to workspace $tag4
+bindsym $mod+Shift+5 move container to workspace $tag5
+bindsym $mod+Shift+6 move container to workspace $tag6
+bindsym $mod+Shift+7 move container to workspace $tag7
+bindsym $mod+Shift+8 move container to workspace $tag8
+bindsym $mod+Shift+9 move container to workspace $tag9
+bindsym $mod+Shift+0 move container to workspace $tag10
+
+# windows               border  backgr. text    indicator child_border
+client.focused          #666666 #000000 #ffffff #e5e5e5   #e5e5e5
+client.focused_inactive #3e3e3e #000000 #ffffff #737373   #3e3e3e
+client.unfocused        #333333 #222222 #ffffff #292d2e   #333333
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+bar {
+        status_command i3blocks -c ~/.config/sway/i3blocks.conf
+
+	position bottom
+        height 20
+        font pango: Source Code Pro 9
+
+        tray_output eDP-1
+
+	colors {
+		background   #000000
+		statusline   #ffffff
+		separator    #666666
+
+		# Bar              border      backgr.     font
+		focused_workspace  #000000       #000000      #ffffff
+		active_workspace   #000000       #000000      #666666
+		inactive_workspace #000000       #000000      #666666
+		urgent_workspace   #4d0000       #4d0000      #000000
+	}
+}

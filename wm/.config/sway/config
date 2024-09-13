@@ -65,6 +65,7 @@ bindsym $mod+w exec $firefox_personal
 bindsym $mod+Shift+w exec $firefox_linkup
 bindsym $mod+e exec thunar
 bindsym Print exec grimshot copy area
+bindsym $mod+Shift+p exec grimshot copy area
 
 bindsym $mod+d exec dmenu_run -i -fn 'Source Code Pro-9' -nb '#000000' -nf '#ffffff' -sb '#666666' -sf '#ffffff'
 bindsym $mod+x exec clipman pick --tool=CUSTOM --tool-args="dmenu -p 'clipman' -i -l 10 -fn 'Source Code Pro-9' -nb '#000000' -nf '#ffffff' -sb '#666666' -sf '#ffffff'"

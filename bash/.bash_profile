@@ -8,3 +8,4 @@ export XDG_SESSION_DESKTOP=sway
 [ "$(tty)" = "/dev/tty1" ] && exec sway
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
+. "$HOME/.cargo/env"

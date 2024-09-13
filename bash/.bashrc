@@ -25,6 +25,7 @@ alias vim="nvim"
 # python
 alias py="python3"
 alias python="python3"
+alias pip="pip3"
 
 # git
 alias ga="git add"
@@ -82,9 +83,8 @@ export PATH=$PATH:/var/lib/snapd/bin
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 # golang path
-export GOROOT=/usr/local/go
 export GOPATH=$HOME/.golang
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+#export PATH=$PATH:$HOME/.golang/bin
 
 # cargo path
 export PATH=$PATH:$HOME/.cargo/bin
@@ -103,3 +103,4 @@ if [ -f "/home/cvargas/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/cva
 # ladybird
 alias lb-build-run="ninja -C $HOME/personal/ladybird/Build/ladybird && $HOME/personal/ladybird/Build/ladybird/bin/Ladybird"
 alias lb-run="$HOME/personal/ladybird/Build/ladybird/bin/Ladybird"
+. "$HOME/.cargo/env"

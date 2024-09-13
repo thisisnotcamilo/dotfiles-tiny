@@ -12,6 +12,13 @@ HISTFILE=~/.bash_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+# fzf shell integration
+eval "$(fzf --bash)"
+
+export FZF_CTRL_R_OPTS="
+  --bind 'ctrl-r:up'
+  --bind 'ctrl-s:down'"
+
 # aliases
 
 # os

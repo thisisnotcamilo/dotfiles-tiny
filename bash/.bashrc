@@ -22,7 +22,9 @@ export FZF_CTRL_R_OPTS="
 # aliases
 
 # os
-alias spotify="spt"
+alias shutdown="sudo shutdown -f now"
+alias suspend="sudo systemctl suspend"
+alias reboot="sudo reboot"
 
 # vim
 alias v="nvim"
@@ -52,6 +54,9 @@ alias l="ls -l --color=auto --group-directories-first"
 alias ll="ls -al --color=auto --group-directories-first"
 alias grep="grep --color=auto"
 alias diff="diff --color=auto"
+
+alias md="frogmouth"
+alias spotify="spt"
 
 # neat func to calc directly on the term
 calc() { s=$(HISTTIMEFORMAT='' history 1);  # recover last command line.
@@ -91,7 +96,7 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 
 # golang path
 export GOPATH=$HOME/.golang
-#export PATH=$PATH:$HOME/.golang/bin
+export PATH=$PATH:$HOME/.golang/bin
 
 # cargo path
 export PATH=$PATH:$HOME/.cargo/bin

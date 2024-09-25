@@ -57,6 +57,7 @@ alias diff="diff --color=auto"
 
 alias md="frogmouth"
 alias spotify="spt"
+alias tldr="cheat -c"
 
 # neat func to calc directly on the term
 calc() { s=$(HISTTIMEFORMAT='' history 1);  # recover last command line.

@@ -38,6 +38,12 @@ for_window [app_id="blueman-manager"] floating enable
 # suspend after idling 10 min
 exec ~/.bin/sway-idle.sh
 
+# enables keyboard backlight
+exec ~/.bin/keyboard-backlight.sh
+
+# enables inhibit_idle when playing audio
+exec sway-audio-idle-inhibit
+
 # clipman daemon
 exec wl-paste -t text --watch clipman store
 
